@@ -17,7 +17,7 @@ import { BrowserTabsService, TabRouteInfos } from './browser-tabs.service';
 })
 export class BrowserTabsComponent extends LoggableComponent implements OnInit, OnDestroy {
 
-  @Input() logs = false;
+  @Input() override logs = false;
 
   @Input() show = true;
   

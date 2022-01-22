@@ -1,20 +1,15 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
-// import { CoreComponent } from './core.component';
-import { EnsureImportedOnceModule } from './ensure-imported-once.module';
+import { NgModule } from '@angular/core';
+// import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
-  declarations: [
-    // CoreComponent
-  ],
+  declarations: [],
   imports: [
+    // CommonModule,
+    BrowserModule,
   ],
   exports: [
-    // CoreComponent
+    BrowserModule,
   ]
 })
-export class CoreModule extends EnsureImportedOnceModule {
-  // Stop the other modules from importing the core module.
-  constructor(@Optional() @SkipSelf() module: CoreModule ) {
-    super(module);
-  }
-}
+export class CoreModule { }

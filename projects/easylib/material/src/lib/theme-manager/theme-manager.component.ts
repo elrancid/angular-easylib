@@ -20,7 +20,7 @@ import { ThemeService } from './theme.service';
 })
 export class ThemeManagerComponent extends LoggableComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() logs = false;
+  @Input() override logs = false;
 
   @Input() themeMode!: ThemeMode;
   @Input() themeSize!: ThemeSize;
@@ -69,8 +69,8 @@ export class ThemeManagerComponent extends LoggableComponent implements OnInit, 
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.themeMode) {
-      const themeMode: ThemeMode = changes.themeMode.currentValue;
+    if (changes['themeMode']) {
+      const themeMode: ThemeMode = changes['themeMode'].currentValue;
       this.log('themeMode: ', themeMode);
       switch (themeMode) {
         case 'light':
@@ -85,8 +85,8 @@ export class ThemeManagerComponent extends LoggableComponent implements OnInit, 
       }
       this.currentThemeMode = themeMode;
     }
-    if (changes.themeSize) {
-      const themeSize: ThemeSize = changes.themeSize.currentValue;
+    if (changes['themeSize']) {
+      const themeSize: ThemeSize = changes['themeSize'].currentValue;
       this.log('themeSize: ', themeSize);
       this.setThemeSize(themeSize);
     }

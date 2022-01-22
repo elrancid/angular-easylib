@@ -32,7 +32,7 @@ import { Tabs } from './tabs.module';
 })
 export class TabsComponent extends LoggableComponent implements AfterViewInit {
 
-  @Input() logs = false;
+  @Input() override logs = false;
 
   @Input() tabs: Tabs | null = [];
 

@@ -2,9 +2,11 @@
  * Public API Surface of material
  */
 
-// export * from './lib/material.service';
-// export * from './lib/material.component';
 export * from './lib/material.module';
+export * from './lib/browser-tabs/browser-tabs.module';
+export * from './lib/browser-tabs/browser-tabs.component';
+export * from './lib/browser-tabs/browser-tabs-reuse-strategy';
+export * from './lib/browser-tabs/browser-tabs.service';
 export * from './lib/sidenav/sidenav.module';
 export * from './lib/sidenav/sidenav.component';
 export * from './lib/nav-list/nav-list.module';
@@ -44,10 +46,6 @@ export * from './lib/pages/pages.module';
 export * from './lib/pages/pages.component';
 export * from './lib/theme-manager/theme-manager.module';
 export * from './lib/theme-manager/theme-manager.component';
-export * from './lib/browser-tabs/browser-tabs.module';
-export * from './lib/browser-tabs/browser-tabs.component';
-export * from './lib/browser-tabs/browser-tabs-reuse-strategy';
-export * from './lib/browser-tabs/browser-tabs.service';
 
 export * from './lib/input/input.module';
 export * from './lib/input/input.component';

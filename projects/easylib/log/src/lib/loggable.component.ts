@@ -12,7 +12,7 @@ import { Loggable } from './loggable';
 })
 export class LoggableComponent extends Loggable {
 
-  @Input() logs = false;
+  @Input() override logs = false;
 
   constructor() {
     super();

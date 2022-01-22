@@ -38,16 +38,13 @@ export class InputComponent implements OnInit {
   @Input() type?: InputType;
 
   @Input() form!: FormGroup;
-  // @Input() formArrayName!: string | number | null;
   formControl!: FormControl;
-  // required: boolean;
+  required: boolean = false;
 
   /**
    * Set modifying false to prevent field modify. Default: true.
    */
-  // @Input() modifying = true;
   @Input() readonly: boolean = false;
-  // @Input() disabled: boolean = false;
 
   constructor() { }
 

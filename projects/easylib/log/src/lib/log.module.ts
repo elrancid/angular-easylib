@@ -5,8 +5,7 @@ import { LoggableComponent } from './loggable.component';
 
 @NgModule({
   declarations: [LoggableComponent],
-  imports: [
-  ],
+  imports: [],
   exports: [LoggableComponent]
 })
 export class LogModule { }

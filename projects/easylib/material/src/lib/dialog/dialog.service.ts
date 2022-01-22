@@ -33,7 +33,7 @@ export class DialogService {
 
   public openDialog(dialogComponent: ComponentType<unknown>, data: Record<string, any> = {}): void {
     const dialogRef = this.dialog.open(dialogComponent, {
-      width: data.width || '250px',
+      width: data['width'] || '250px',
       data,
     });
     dialogRef.afterClosed().subscribe(result => {

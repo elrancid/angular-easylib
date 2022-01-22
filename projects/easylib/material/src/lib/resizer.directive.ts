@@ -66,7 +66,7 @@ type ResizerModeType = 'flex' | 'block';
 })
 export class ResizerDirective extends Loggable implements OnInit {
 
-  public logs = false;
+  public override logs = false;
 
   private moving = false;
   private startX!: number;

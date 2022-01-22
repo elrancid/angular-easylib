@@ -13,7 +13,7 @@ import { DynamicItems } from '../dynamic/dynamic.module';
 })
 export class PagesComponent extends LoggableComponent implements AfterViewInit {
 
-  @Input() logs = false;
+  @Input() override logs = false;
 
   @Input() pages!: DynamicItems;
   @Input() selectedIndex!: number;

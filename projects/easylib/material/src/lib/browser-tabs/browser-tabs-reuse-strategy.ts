@@ -28,7 +28,7 @@ import { BrowserTabsService } from './browser-tabs.service';
 })
 export class BrowserTabsReuseStrategy extends Loggable implements RouteReuseStrategy {
 
-  public logs = false;
+  public override logs = false;
 
   /**
    * Con il routing in loadChildren (lazy loading) nella seconda chiamata si perde il routeConfig
@@ -96,7 +96,7 @@ export class BrowserTabsReuseStrategy extends Loggable implements RouteReuseStra
     //   lastFullPath = fullPath;
     //   this.log(logPrefix, '******************* sub path - lastFullPath:', lastFullPath);
     // }
-    if (route.data.noReuse === true) {
+    if (route.data['noReuse'] === true) {
       return fullPath;
     }
     if (!configPath && !!fullPath) {
@@ -117,7 +117,7 @@ export class BrowserTabsReuseStrategy extends Loggable implements RouteReuseStra
    * @returns 
    */
   private saveRestore(route: ActivatedRouteSnapshot): boolean {
-    if (route.data.noStore === true) {
+    if (route.data['noStore'] === true) {
       return false;
     }
     return true;
@@ -211,7 +211,7 @@ export class BrowserTabsReuseStrategy extends Loggable implements RouteReuseStra
     // this.log('?? shouldReuseRoute previous:', previous, 'next:', next);
     this.log('?? shouldReuseRoute previous:', this.getConfigPath(previous), 'next:', this.getConfigPath(next));
     const path = this.getPath(next, true, '?? shouldReuseRoute');
-    if (next.data.noReuse === true) {
+    if (next.data['noReuse'] === true) {
       this.log('   shouldReuseRoute return false');
       return false;
     }

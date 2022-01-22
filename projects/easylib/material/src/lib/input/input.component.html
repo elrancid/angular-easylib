@@ -1,13 +1,9 @@
-<div [formGroup]="form">
-  <!-- <easy-form-array-switch [formArrayName]="formArrayName"> -->
-
-  <!-- <span *ngIf="form.controls[controlName].errors.required">*</span> -->
+<ng-container [formGroup]="form">
   <mat-form-field
   appearance="legacy"
   floatLabel="always"
   [class.mat-form-field-readonly]="readonly"
   >
-  <!-- [ngClass]="{'mat-form-field-readonly': readonly}" -->
     <mat-label>{{label}}</mat-label>
 
     <input
@@ -15,11 +11,9 @@
     [type]="(password && hide) ? 'password' : (type ? type : 'text')"
     [placeholder]="placeholder!"
     [formControlName]="controlName"
-    [required]="formControl?.errors?.required"
+    [required]="formControl.errors?.['required']"
     [readonly]="readonly"
     >
-    <!-- [attr.disabled]="readonly'':null" -->
-    <!-- [disabled]="readonly" -->
 
     <button
     *ngIf="password"
@@ -30,37 +24,7 @@
     [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
-    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
     <mat-hint>{{hint}}</mat-hint>
-    <mat-error *ngIf="formControl?.invalid">{{getErrorMessage()}}</mat-error>
+    <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
-
-  <!-- </easy-form-array-switch> -->
-</div>
-
-<!--
-<mat-form-field appearance="legacy">
-  <mat-label>Legacy</mat-label>
-  <input matInput placeholder="Placeholder">
-  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-  <mat-hint>Hint</mat-hint>
-</mat-form-field>
-<mat-form-field appearance="standard">
-  <mat-label>Standard</mat-label>
-  <input matInput placeholder="Placeholder">
-  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-  <mat-hint>Hint</mat-hint>
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Fill</mat-label>
-  <input matInput placeholder="Placeholder">
-  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-  <mat-hint>Hint</mat-hint>
-</mat-form-field>
-<mat-form-field appearance="outline">
-  <mat-label>Outline</mat-label>
-  <input matInput placeholder="Placeholder">
-  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-  <mat-hint>Hint</mat-hint>
-</mat-form-field>
--->
+</ng-container>

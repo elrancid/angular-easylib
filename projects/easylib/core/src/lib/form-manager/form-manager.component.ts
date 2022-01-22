@@ -21,10 +21,10 @@ import { FormManager } from './form-manager';
 })
 export abstract class FormManagerComponent extends FormManager implements OnInit, OnDestroy {
 
-  @Input() logs = false;
-  @Input() logsForm = false;
+  @Input() override logs = false;
+  @Input() overridelogsForm = false;
 
-  @Input() set formData(formData: {[key: string]: any}) {
+  @Input() override set formData(formData: {[key: string]: any}) {
     this.logIf(this.logsForm, '~~~ FormManagerComponent.set formData():', formData);
     if (formData) {
       super.formData = formData as {[key: string]: any};
@@ -32,7 +32,7 @@ export abstract class FormManagerComponent extends FormManager implements OnInit
   }
   @Output() formDataChange = new EventEmitter();
 
-  public get formData(): {[key: string]: any} {
+  public override get formData(): {[key: string]: any} {
     return super.formData;
     // return this._formData;
   }
@@ -64,35 +64,34 @@ export abstract class FormManagerComponent extends FormManager implements OnInit
     this.destroy();
   }
 
-  protected emitFormDataChanged(formData: {[key: string]: any}): void {
+  protected override emitFormDataChanged(formData: {[key: string]: any}): void {
     this.logIf(this.logsForm, '~~~ FormManagerComponent.emitFormDataChanged() formData:', formData);
     this.formDataChange.emit(formData);
   }
 
-  trace(...params: any): void {
-    super.trace(...params);
-  }
-  log(...params: any): void {
-    super.log(...params);
-  }
-  warn(...params: any): void {
-    super.warn(...params);
-  }
-  error(...params: any): void {
-    super.error(...params);
-  }
-
-  traceIf(...params: any): void {
-    super.traceIf(...params);
-  }
-  logIf(...params: any): void {
-    super.logIf(...params);
-  }
-  warnIf(...params: any): void {
-    super.warnIf(...params);
-  }
-  errorIf(...params: any): void {
-    super.errorIf(...params);
-  }
+  // trace(...params: any): void {
+  //   super.trace(...params);
+  // }
+  // log(...params: any): void {
+  //   super.log(...params);
+  // }
+  // warn(...params: any): void {
+  //   super.warn(...params);
+  // }
+  // error(...params: any): void {
+  //   super.error(...params);
+  // }
+  // traceIf(...params: any): void {
+  //   super.traceIf(...params);
+  // }
+  // logIf(...params: any): void {
+  //   super.logIf(...params);
+  // }
+  // warnIf(...params: any): void {
+  //   super.warnIf(...params);
+  // }
+  // errorIf(...params: any): void {
+  //   super.errorIf(...params);
+  // }
 
 }

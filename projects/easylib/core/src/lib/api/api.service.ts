@@ -20,7 +20,7 @@ import { RouterService } from '../router/router.service';
   providedIn: 'root'
 })
 export class ApiService extends Loggable {
-  public logs = false;
+  public override logs = false;
   // debugDatetime: Date;
 
   private pathUrl = 'http://localhost:80/api/';

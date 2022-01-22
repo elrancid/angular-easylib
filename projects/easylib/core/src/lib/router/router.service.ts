@@ -10,7 +10,7 @@ import { NavigationService } from './navigation.service';
 })
 export class RouterService extends Loggable {
 
-  public logs = false;
+  public override logs = false;
 
   constructor(
     private router: Router,

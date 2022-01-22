@@ -11,7 +11,7 @@ floatLabel="always"
   [type]="(password && hide) ? 'password' : (type ? type : 'text')"
   [placeholder]="placeholder!"
   [formControlName]="controlName"
-  [required]="formControl?.errors?.required"
+  [required]="formControl.errors?.['required']"
   [readonly]="readonly"
   >
 
@@ -25,6 +25,6 @@ floatLabel="always"
     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
   </button>
   <mat-hint>{{hint}}</mat-hint>
-  <mat-error *ngIf="formControl?.invalid">{{getErrorMessage()}}</mat-error>
+  <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
 </mat-form-field>
 `;

@@ -1,14 +1,14 @@
 {
   "name": "@easylib/core",
-  "version": "12.0.1",
+  "version": "13.1.0",
   "peerDependencies": {
-    "@angular/common": "^12.1.2",
-    "@angular/core": "^12.1.2",
-    "@angular/forms": "~12.1.2",
-    "@easylib/util": "elrancid/easylib-util#^12.0.1",
-    "@easylib/log": "elrancid/easylib-log#^12.0.1"
+    "@angular/common": "^13.1.0",
+    "@angular/core": "^13.1.0",
+    "@angular/forms": "~13.1.0",
+    "@easylib/util": "elrancid/easylib-util#^13.1.0",
+    "@easylib/log": "elrancid/easylib-log#^13.1.0"
   },
   "dependencies": {
-    "tslib": "^2.2.0"
+    "tslib": "^2.3.0"
   }
 }

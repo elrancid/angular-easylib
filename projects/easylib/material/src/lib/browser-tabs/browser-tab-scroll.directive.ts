@@ -10,7 +10,7 @@ import { BrowserTabsService } from './browser-tabs.service';
 })
 export class BrowserTabScrollDirective extends Loggable {
 
-  public logs = false;
+  public override logs = false;
 
   private scrollY: number = 0;
   private scrollX: number = 0;

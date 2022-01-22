@@ -15,7 +15,7 @@ import { LoggableComponent } from '@easylib/log';
 })
 export class SelectComponent extends LoggableComponent implements OnInit, OnDestroy {
 
-  @Input() logs = false;
+  @Input() override logs = false;
 
   @Input() label?: string;
   @Input() hint?: string;
@@ -32,7 +32,7 @@ export class SelectComponent extends LoggableComponent implements OnInit, OnDest
   @Input() itemValuePath: string = "value";
   @Input() itemLabelPath: string = "label";
 
-  private stop$ = new Subject();
+  private stop$ = new Subject<void>();
 
   private _initEnded = false;
 

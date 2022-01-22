@@ -1,6 +1,6 @@
 # AngularEasylib
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.3.
 
 It's an experimental angular libraries collection.
 
@@ -36,11 +36,11 @@ Create yarn links from easylib dist folders:
 ```bash
 cd dist/easylib/core
 yarn link
-cd ../../../dist/easylib/util
+cd ../util
 yarn link
-cd ../../../dist/easylib/log
+cd ../log
 yarn link
-cd ../../../dist/easylib/material
+cd ../material
 yarn link
 ```
 
@@ -80,7 +80,8 @@ yarn add @angular/cdk\
  primeicons;
 yarn add --dev\
  @ngrx/schematics\
- @ngrx/store-devtools;
+ @ngrx/store-devtools\
+ ngrx-store-freeze;
 ```
 
 Now is possible to serve the project having the always builded version of libraries.
@@ -111,6 +112,8 @@ cd my-project
 and add libraries with:
 ```bash
 yarn add git://github.com/elrancid/easylib-core.git
+yarn add git://github.com/elrancid/easylib-util.git
+yarn add git://github.com/elrancid/easylib-log.git
 yarn add git://github.com/elrancid/easylib-material.git
 ```
 

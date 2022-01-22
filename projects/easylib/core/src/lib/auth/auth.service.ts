@@ -26,7 +26,7 @@ interface HttpResultUserType {
   providedIn: 'root'
 })
 export class AuthService extends Loggable {
-  public logs = false;
+  public override logs = false;
   // private debugDatetime: Date;
 
   private token: string | null = null;

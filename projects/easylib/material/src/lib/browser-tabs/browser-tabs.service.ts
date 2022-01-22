@@ -78,7 +78,7 @@ export declare interface TabRouteInfos {
 })
 export class BrowserTabsService extends Loggable {
 
-  public logs = false;
+  public override logs = false;
   private logNavigation = false;
   private logStorage = false;
 
