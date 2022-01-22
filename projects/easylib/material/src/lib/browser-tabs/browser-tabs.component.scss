@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+mat-toolbar {
+  height: 49px;
+  flex-shrink: 0;
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  max-width: 100%;
+  padding: 0 6px;
+}
+mat-toolbar .icon {
+  height: 36px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+app-tabs {
+  margin-left: 6px;
+}
+app-tabs, mat-tab-group {
+  flex: 1 1 auto;
+  width: 100px;
+}
+
+.page-content {
+  flex: 1 1 auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}

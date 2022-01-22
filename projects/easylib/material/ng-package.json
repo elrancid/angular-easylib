@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../dist/easylib/material",
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  },
+  "assets": [
+    "_theming.scss"
+  ],
+  "whitelistedNonPeerDependencies": ["."]
+}

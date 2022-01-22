@@ -1,0 +1,18 @@
+<mat-tab-group
+#tabGroup
+[class.browser-tabs]="browserTabsStyle"
+[selectedIndex]="selectedIndex"
+(selectedIndexChange)="indexChange($event)">
+  <mat-tab *ngFor="let tab of tabs; let index = index" [disabled]="index === selectedIndex">
+    <ng-template mat-tab-label>
+      <mat-icon *ngIf="tab.icon">{{ tab.icon }}</mat-icon>
+      <span class="tab-text">{{ tab.label }}</span>
+      <div class="close-button">
+        <button mat-icon-button attr.aria-label="close" (click)="$event.stopPropagation();closeTabEvent(index);">
+          <mat-icon class="close-icon">close</mat-icon>
+        </button>
+      </div>
+    </ng-template>
+    <ng-template dynamic></ng-template>
+  </mat-tab>
+</mat-tab-group>

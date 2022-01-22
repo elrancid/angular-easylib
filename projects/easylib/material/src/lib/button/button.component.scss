@@ -1,0 +1,10 @@
+:host {
+  // display: inline-block;
+  position: relative;
+}
+app-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}

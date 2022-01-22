@@ -1,0 +1,73 @@
+<!-- <mat-toolbar color="primary"> -->
+<mat-toolbar class="browser-tabs-toolbar">
+
+  <ng-content select="[beforeNavButtons]"></ng-content>
+
+  <button
+  mat-icon-button
+  class="d-md-none"
+  (click)="goBack($event)"
+  [disabled]="!(browserTabsService.backButtonEnabled$ | async)">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button
+  mat-icon-button
+  class="d-md-none"
+  (click)="goUp($event)"
+  [disabled]="!(browserTabsService.upButtonRouterLink$ | async)">
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+  <button
+  mat-icon-button
+  class="d-md-none"
+  (click)="goForward($event)"
+  [disabled]="!(browserTabsService.nextButtonEnabled$ | async)">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+
+  <ng-content select="[beforeTabs]"></ng-content>
+
+  <easy-tabs
+  [tabs]="browserTabsService.tabs$ | async"
+  [selectedIndex]="browserTabsService.selectedIndex$ | async"
+  (selectedIndexChange)="selectedIndexChange($event)"
+  [browserTabsStyle]="true"
+  (closeTab)="closeTab($event)"
+  ></easy-tabs>
+<!--
+  <mat-tab-group #tabGroup [selectedIndex]="selectedIndex" (selectedIndexChange)="indexChange($event)">
+    <mat-tab *ngFor="let tab of tabs; let index = index">
+      <ng-template mat-tab-label>
+        <mat-icon *ngIf="tab.icon" class="example-tab-icon">{{ tab.icon }}</mat-icon>
+        {{ tab.label }}
+      </ng-template>
+      <ng-template dynamic></ng-template>
+    </mat-tab>
+  </mat-tab-group>
+-->
+
+
+  <ng-content select="[afterTabs]"></ng-content>
+
+  <span class="spacer"></span>
+
+  <ng-content select="[beforeAddTab]"></ng-content>
+
+  <button mat-icon-button class="d-md-none" (click)="addTab($event)">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <ng-content select="[afterAddTab]"></ng-content>
+
+</mat-toolbar>
+
+<!-- <div class="content">
+  <ng-content></ng-content>
+</div> -->
+<div class="page-content" browser-tab-scroll>
+  <router-outlet
+  *ngIf="show"
+  (activate)='onActivate($event)'
+  (deactivate)='onDeactivate($event)'
+  ></router-outlet>
+</div>

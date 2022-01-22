@@ -1,0 +1,11 @@
+<mat-sidenav-container [autosize]="autosize">
+  <mat-sidenav
+  #sidenav
+  mode="side"
+  disableClose
+  [(opened)]="opened">
+  <!-- [fixedInViewport]="false" -->
+  <ng-content select=".sidenav"></ng-content>
+  </mat-sidenav>
+  <ng-content></ng-content>
+</mat-sidenav-container>

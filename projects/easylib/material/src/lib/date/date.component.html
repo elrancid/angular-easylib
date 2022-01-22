@@ -1,0 +1,27 @@
+<div [formGroup]="form">
+  <mat-form-field
+  appearance="legacy"
+  floatLabel="always"
+  >
+    <mat-label>{{label}}</mat-label>
+    <input
+    matInput
+    [matDatepicker]="picker"
+    [placeholder]="placeholder"
+    [formControlName]="controlName"
+    [required]="form?.controls[controlName]?.errors?.required"
+    [readonly]="readonly"
+    (focus)="picker.open();onFocus($event);"
+    (dateChange)="onDateChange($event)"
+    >
+    <!-- (focus)="onFocus($event)" -->
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-hint>{{hint}}</mat-hint>
+    <mat-error *ngIf="form?.controls[controlName]?.invalid">{{getErrorMessage()}}</mat-error>
+    <mat-datepicker
+    #picker
+    ></mat-datepicker>
+    <!-- [dateClass]="dateClass" -->
+  </mat-form-field
+  >
+</div>

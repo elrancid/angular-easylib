@@ -1,0 +1,9 @@
+<div [formGroup]="form!">
+  <mat-slide-toggle
+  [labelPosition]="labelPosition"
+  [formControlName]="controlName!"
+  [color]="color"
+  (change)="onChange($event)"
+  >{{ label }}
+  </mat-slide-toggle>
+</div>

@@ -1,0 +1,23 @@
+:host {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+:host > * {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: none;
+  overflow: hidden;
+  flex-basis: 100%;
+}
+:host > *.active {
+  display: block;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1;
+  flex-grow: 1;
+}

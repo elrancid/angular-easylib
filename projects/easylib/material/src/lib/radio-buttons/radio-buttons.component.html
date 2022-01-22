@@ -1,0 +1,14 @@
+<div [formGroup]="form!">
+  <!-- [aria-labelledby]="label" -->
+  <mat-radio-group
+  [formControlName]="controlName!"
+  [color]="color"
+  >
+    <mat-radio-button
+    *ngFor="let item of items"
+    [aria-label]="item[itemLabelPath!]"
+    [value]="item[itemValuePath!]">
+    {{ item[itemLabelPath!] }}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>

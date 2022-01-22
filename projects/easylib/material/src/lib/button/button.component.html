@@ -1,0 +1,70 @@
+<app-spinner
+[size]="30"
+[hidden]="!loading"
+></app-spinner>
+
+<button
+*ngIf="type === 'basic'"
+mat-button
+[disabled]="loading || disabled"
+[color]="color"
+[matTooltip]="tooltip"
+[attr.aria-label]="tooltip">
+  <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  {{ text }}
+  <!-- <ng-content></ng-content> -->
+</button>
+<button
+*ngIf="type === 'raised'"
+mat-raised-button
+[disabled]="loading || disabled"
+[color]="color"
+[matTooltip]="tooltip"
+[attr.aria-label]="tooltip">
+  <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  {{ text }}
+  <!-- <ng-content></ng-content> -->
+</button>
+<button
+*ngIf="type === 'stroked'"
+mat-stroked-button
+[disabled]="loading || disabled"
+[color]="color"
+[matTooltip]="tooltip"
+[attr.aria-label]="tooltip">
+  <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  {{ text }}
+  <!-- <ng-content></ng-content> -->
+</button>
+<button
+*ngIf="type === 'flat'"
+mat-flat-button
+[disabled]="loading || disabled"
+[color]="color"
+[matTooltip]="tooltip"
+[attr.aria-label]="tooltip">
+  <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  {{ text }}
+  <!-- <ng-content></ng-content> -->
+</button>
+<button
+*ngIf="type === 'icon'"
+mat-icon-button
+[disabled]="loading || disabled"
+[color]="color"
+[matTooltip]="tooltip"
+[attr.aria-label]="tooltip">
+  <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  <!-- <ng-content></ng-content> -->
+</button>
+<button
+*ngIf="type === 'fab'"
+mat-mini-fab
+[disabled]="loading || disabled"
+[class.mat-elevation-z0]="true"
+[color]="color"
+[matTooltip]="tooltip"
+[attr.aria-label]="tooltip">
+  <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+  <!-- <ng-content></ng-content> -->
+</button>

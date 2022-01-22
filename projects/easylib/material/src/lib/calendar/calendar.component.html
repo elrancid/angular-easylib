@@ -1,0 +1,11 @@
+<mat-calendar
+#calendar
+[(selected)]="selectedDate"
+(selectedChange)="selectedChange($event)"
+[startAt]="startAt"
+[minDate]="minDate"
+[maxDate]="maxDate"
+[dateClass]="dateClass"
+(monthSelected)="monthSelected($event)"
+></mat-calendar>
+<!-- [dateFilter]="myDateFilter" -->

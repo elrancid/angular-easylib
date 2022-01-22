@@ -1,0 +1,8 @@
+<div
+*ngFor="let item of pages; let i=index"
+[class.active]="i === selectedIndex">
+  <div cdkscrollable style="transform: none;">
+    <ng-template dynamic></ng-template>
+  </div>
+</div>
+<ng-content style="display: none;"></ng-content>

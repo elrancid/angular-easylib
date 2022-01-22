@@ -1,0 +1,11 @@
+<h1 mat-dialog-title *ngIf="data.title">{{ data.title }}</h1>
+<div mat-dialog-content *ngIf="data.description">
+  {{ data.description }}
+</div>
+<div mat-dialog-actions>
+  <easy-button (click)="onNoClick()" [label]="data.cancel" color="warn" tabIndex="2"></easy-button>
+  <easy-button [mat-dialog-close]="true" [label]="data.confirm" tabIndex="1"></easy-button>
+  <!-- <easy-button [mat-dialog-close]="true" [label]="data.confirm" cdkTrapFocus cdkFocusInitial></easy-button> -->
+  <!-- <button mat-button (click)="onNoClick()">{{ data.cancel }}</button> -->
+  <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{ data.confirm }}</button> -->
+</div>

@@ -1,0 +1,132 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "@easylib/core": {
+      "projectType": "library",
+      "root": "projects/easylib/core",
+      "sourceRoot": "projects/easylib/core/src",
+      "prefix": "easy",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/easylib/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/easylib/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/easylib/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/easylib/core/src/test.ts",
+            "tsConfig": "projects/easylib/core/tsconfig.spec.json",
+            "karmaConfig": "projects/easylib/core/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@easylib/util": {
+      "projectType": "library",
+      "root": "projects/easylib/util",
+      "sourceRoot": "projects/easylib/util/src",
+      "prefix": "easy",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/easylib/util/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/easylib/util/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/easylib/util/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/easylib/util/src/test.ts",
+            "tsConfig": "projects/easylib/util/tsconfig.spec.json",
+            "karmaConfig": "projects/easylib/util/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@easylib/log": {
+      "projectType": "library",
+      "root": "projects/easylib/log",
+      "sourceRoot": "projects/easylib/log/src",
+      "prefix": "easy",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/easylib/log/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/easylib/log/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/easylib/log/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/easylib/log/src/test.ts",
+            "tsConfig": "projects/easylib/log/tsconfig.spec.json",
+            "karmaConfig": "projects/easylib/log/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@easylib/material": {
+      "projectType": "library",
+      "root": "projects/easylib/material",
+      "sourceRoot": "projects/easylib/material/src",
+      "prefix": "easy",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/easylib/material/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/easylib/material/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/easylib/material/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/easylib/material/src/test.ts",
+            "tsConfig": "projects/easylib/material/tsconfig.spec.json",
+            "karmaConfig": "projects/easylib/material/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "@easylib/core"
+}

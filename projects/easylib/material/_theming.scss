@@ -1,0 +1,326 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+$custom-typography: mat-typography-config() !default;
+// Example:
+// $custom-typography: mat-typography-config(
+//   $font-family: 'Roboto, monospace',
+//   $headline: mat-typography-level(32px, 48px, 700),
+//   $body-1: mat-typography-level(16px, 24px, 500)
+// );
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core($custom-typography);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$light-primary: mat-palette($mat-indigo) !default;
+$light-accent: mat-palette($mat-pink, A200, A100, A400) !default;
+
+// The warn palette is optional (defaults to red).
+$light-warn: mat-palette($mat-red) !default;
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$light-theme: mat-light-theme((
+  color: (
+    primary: $light-primary,
+    accent: $light-accent,
+    warn: $light-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($light-theme);
+
+
+// Define an alternate dark theme.
+$dark-primary: mat-palette($mat-blue-grey) !default;
+$dark-accent:  mat-palette($mat-amber, A200, A100, A400) !default;
+$dark-warn:    mat-palette($mat-deep-orange) !default;
+$dark-theme:   mat-dark-theme((
+  color: (
+    primary: $dark-primary,
+    accent: $dark-accent,
+    warn: $dark-warn,
+  )
+));
+
+// Include the dark color styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
+.dark-theme {
+  @include angular-material-color($dark-theme);
+}
+
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.primary-color {
+  color: map-get($light-primary, 500);
+}
+.accent-color {
+  color: map-get($light-accent, A200);
+}
+.warn-color {
+  color: map-get($light-warn, 500);
+}
+
+.dark-theme .primary-color {
+  color: map-get($dark-primary, 500);
+}
+.dark-theme .accent-color {
+  color: map-get($dark-accent, A200);
+}
+.dark-theme .warn-color {
+  color: map-get($dark-warn, 500);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/*
+https://stackoverflow.com/questions/45089178/how-to-get-primary-or-accent-color-of-currently-applied-theme-in-angular-materia
+https://medium.com/@tomastrajan/the-complete-guide-to-angular-material-themes-4d165a9d24d1
+https://stackoverflow.com/questions/46760306/get-material-2-theme-color-scheme-palette-for-other-elements
+https://github.com/mirismaili/angular-material-dynamic-themes
+*/
+
+$light-foreground-palette: map-get($light-theme, foreground);
+$light-background-palette: map-get($light-theme, background);
+$dark-foreground-palette: map-get($dark-theme, foreground);
+$dark-background-palette: map-get($dark-theme, background);
+
+.background-color {
+  background-color: map-get($light-background-palette, background);
+}
+.dark-theme .background-color {
+  background-color: map-get($dark-background-palette, background);
+}
+
+/* Table */
+@import '~primeng/resources/primeng.min.css';
+@import '~primeicons/primeicons.css';
+// @import '~primeng/resources/themes/saga-blue/theme.css';
+// @import '~primeng/resources/themes/saga-blue/theme.css';
+
+/* BrowserTabs */
+
+.browser-tabs-toolbar {
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid map-get($light-foreground-palette, divider);
+}
+.dark-theme .browser-tabs-toolbar {
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid map-get($dark-foreground-palette, divider);
+}
+
+.browser-tabs {
+
+  // **To remove the border for the tabs:**
+  .mat-tab-header {
+    border-bottom: none;
+  }
+
+  .mat-tab-list {
+    // ** To specify the height && color for the ink bar:**  
+    .mat-ink-bar{
+      display: none;
+    }
+  
+    .mat-tab-labels {
+
+      .mat-tab-label {
+        padding: 0 9px;
+        justify-content: unset;
+        text-align: unset;
+        height: 50px;
+        border-style: solid none none solid;
+        border-width: 1px;
+        border-color: map-get($light-foreground-palette, divider);
+        border-top-left-radius: 1.2rem;
+        border-top-right-radius: 1.2rem;
+
+        .mat-tab-label-content {
+          flex-grow: 1;
+          display: flex;
+          justify-content: normal;
+
+          .tab-text {
+            // flex: 1 1 auto;
+            flex-grow: 1;
+          }
+
+          .mat-icon-button {
+            display: none;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+          }
+
+          .close-button {
+            display: none;
+            position: absolute;
+            right: 0;
+            // background-color: #fafafa;
+            padding-left: 10px;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, map-get($light-background-palette, background) 10px, map-get($light-background-palette, background) 100%);
+          }
+        }
+
+        .mat-tab-label-content > * {
+          margin: 0 3px;
+        }
+      }
+
+      // https://stackoverflow.com/questions/1817792/is-there-a-previous-sibling-selector
+      .mat-tab-label-active ~ .mat-tab-label {
+        border-style: solid solid none none;
+      }
+
+      // **Active tab label colour changes:**
+      .mat-tab-label-active {
+        color: rgba(0, 0, 0, 0.87);
+        background-color: map-get($light-background-palette, background);
+        opacity: unset;
+        border-style: solid solid none solid;
+
+        .mat-tab-label-content .mat-icon-button {
+          display: block;
+        }
+      }
+
+      .mat-tab-label-active:hover .mat-tab-label-content .close-button {
+        display: block;
+      }
+
+    }
+  }
+}
+
+.dark-theme {
+  .browser-tabs .mat-tab-list .mat-tab-labels {
+    .mat-tab-label {
+      border-color: map-get($dark-foreground-palette, divider) !important;
+
+      .mat-tab-label-content .close-button {
+        background: linear-gradient(90deg, rgba(0,0,0,0) 0%, map-get($dark-background-palette, background) 10px, map-get($dark-background-palette, background) 100%);
+      }
+    }
+    .mat-tab-label-active {
+      color: map-get($dark-foreground-palette, text);
+      background-color: map-get($dark-background-palette, background) !important;
+    }
+  }
+}
+
+
+
+// .icon {
+//   height: 38px;
+// }
+
+
+/* Material */
+
+// Resizer: mode "flex"
+
+*[resizer-container]:not([resizer-mode=block]) {
+  display: flex !important;
+  flex-direction: row !important;
+  height: 100% !important;
+}
+*[resizer-container=vertical]:not([resizer-mode=block]) {
+  flex-direction: column !important;
+}
+*[resizer-container]:not([resizer-mode=block]) > *[resizer-panel] {
+  flex-grow: 0;
+  flex-shrink: 0;
+  overflow: auto;
+}
+
+// Resizer: mode "block"
+
+*[resizer-container][resizer-mode=block] {
+  // overflow: auto;
+  // position: relative;
+}
+*[resizer-container=vertical][resizer-mode=block] {
+  // float: none;
+  // height: auto;
+  height: 100%;
+}
+*[resizer-container=horizontal][resizer-mode=block] > *[resizer-panel] {
+  float: left;
+  height: 100%;
+  overflow: auto;
+}
+
+
+/*
+lib-divider[resizer] {
+  display: flex;
+  flex: auto 0 0;
+  justify-content: center;
+  cursor: ew-resize;
+  height: 100%;
+}
+lib-divider[resizer=vertical] {
+  flex-direction: column;
+  cursor: ns-resize;
+  height: auto;
+}
+
+lib-divider[resizer] > mat-divider:after {
+  content: "";
+  display: block;
+  // height: 100%;
+  width: 8px;
+  position: absolute;
+  // top: 0;
+  // left: -3px;
+  z-index: 10;
+}
+lib-divider[resizer=vertical] > mat-divider:after {
+  content: "";
+  display: block;
+  height: 8px;
+  // width: 100%;
+  position: absolute;
+  // top: 0;
+  // left: -3px;
+  z-index: 10;
+}
+*/
+
+// .date-picker-holiday {
+//   background: $accent-color;
+//   border-radius: 100%;
+// }
+// .date-picker-holiday .mat-calendar-body-cell-content {
+//   color: $text-inverse-color;
+// }
+
+// .mat-fab[ng-reflect-color=grey],
+// .mat-mini-fab[ng-reflect-color=grey] {
+//   background-color: mat-color($app-primary, 200);
+// }
+// .mat-icon-button[ng-reflect-color=green] {
+//   color: #00a651;
+// }

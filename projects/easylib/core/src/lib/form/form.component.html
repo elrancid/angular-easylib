@@ -1,0 +1,25 @@
+<h3 *ngIf="title" class="title">{{ title }}</h3>
+<div *ngIf="errorMessage" class="mat-error" role="alert">{{ errorMessage }}</div>
+<form
+[formGroup]="form"
+(ngSubmit)="submit()">
+<!-- <form [formGroup]="form"> -->
+  <ng-content></ng-content>
+  <div class="actions">
+    <div class="spacer"></div>
+    <app-button-fab
+    *ngIf="showBack"
+    icon="arrow_back"
+    label="back"
+    (click)="router.back()"
+    ></app-button-fab>
+    <app-button-fab
+    icon="done"
+    label="submit"
+    type="submit"
+    color="accent"
+    [disabled]="!form.valid"
+    ></app-button-fab>
+    <!-- (click)="submit($event)" -->
+  </div>
+</form>
