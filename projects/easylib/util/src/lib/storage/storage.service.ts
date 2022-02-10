@@ -62,6 +62,7 @@ export class StorageService {
         if (!this.storage.hasOwnProperty(storageKey)) {
           // console.log('StorageService.loadInitialState() load from localStorage... storageKey:', storageKey);
           const storageValue = localStorage.getItem(storageKey);
+          // console.log('StorageService.loadInitialState() load from localStorage... storageValue[' + (typeof storageValue) + ']:', storageValue);
           if (storageValue) {
             const value = JSON.parse(storageValue);
             // console.log('StorageService.loadInitialState() loaded from localStorage: storageKey:', storageKey, 'value:', value);

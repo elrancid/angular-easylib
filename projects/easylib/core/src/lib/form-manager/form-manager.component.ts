@@ -54,6 +54,15 @@ export abstract class FormManagerComponent extends FormManager implements OnInit
   //   // this.logger.log(this, '~~~ FormManager.constructor() formData:', this.formData);
   // }
 
+  override trace(...params: any): void { super.trace(params); }
+  override log(...params: any): void { super.log(params); }
+  override warn(...params: any): void { super.warn(params); }
+  override error(...params: any): void { super.error(params); }
+  override traceIf(...params: any): void { super.traceIf(params); }
+  override logIf(...params: any): void { super.logIf(params); }
+  override warnIf(...params: any): void { super.warnIf(params); }
+  override errorIf(...params: any): void { super.errorIf(params); }
+
   ngOnInit(): void {
     this.logIf(this.logsForm, '~~~ FormManagerComponent.ngOnInit() formStructure:', this.formStructure);
     this.init();

@@ -1,6 +1,7 @@
 export interface ApiResponse {
-  status: string;
-  result: string;
+  status?: string;
+  result?: string;
   message?: string;
-  data?: object;
+  data?: string | Record<string, any> | Record<string, any>[];
 }
+// export type ApiResponse = Record<string, any>;

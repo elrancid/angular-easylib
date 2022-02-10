@@ -3,6 +3,8 @@ import { isString, isObject, isArray, cloneDeep } from 'lodash-es';
 
 export class Util {
 
+  static moment = (moment as any).default;
+
   /**
    * Parse value to number.
    * @param value String value

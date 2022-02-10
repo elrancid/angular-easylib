@@ -21,10 +21,12 @@ import { RouterService } from '../router/router.service';
 })
 export class ApiService extends Loggable {
   public override logs = false;
-  // debugDatetime: Date;
 
-  private pathUrl = 'http://localhost:80/api/';
-  // private pathUrl = 'https://storybox.life/api/';
+  // private protocol: string = 'http';
+  // private host: string = 'localhost';
+  // private port: number = 80;
+  // private prefix: string = 'api/';
+  private pathUrl = 'http://localhost/api/';
 
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -48,15 +50,12 @@ export class ApiService extends Loggable {
     private router: RouterService,
   ) {
     super();
-    // const location = this.router.getLocationData();
-    // this.pathUrl = location.protocol + '//' + location.hostname + '/api/';
     this.pathUrl = this.router.getOrigin() + '/api/';
   }
 
-  // private getPathUrl(): string {
-  //   this.router.printAll();
-  //   return this.pathUrl;
-  // }
+  public getPathUrl(): string {
+    return this.pathUrl;
+  }
 
   // debugInstance() {
   //   this.log('debugDatetime: ' + this.debugDatetime.toString());
@@ -66,44 +65,25 @@ export class ApiService extends Loggable {
   //   this.httpOptions.headers = this.httpOptions.headers.set('Authorization', newToken);
   // }
 
-  /**
-   * After user. Load 'pacman/entityDatetime' fromDB for cache
-   */
-  // async init(): Promise<void> {
-  //   return new Promise((resolve, reject) => {
-  //     this.log('ApiService.init() call pacman/entityDatetime');
-  //     this.callApiGet('pacman/entityDatetime')
-  //     .then((result: Array<object>) => {
-  //       this.log('ApiService.init() result:', result);
-  //       this.cache.init(result);
-  //       resolve();
-  //     })
-  //     .catch((error) => {
-  //       this.log('ApiService.init() error:', error);
-  //       reject(error);
-  //     });
-  //   });
-  // }
-
   async resetCache(): Promise<void> {
     this.cache.clear();
     // return this.init();
   }
 
-  public async callApiGet(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
-    return this.callApi('GET', url, params, cacheRequestType);
+  public async get(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
+    return this.request('GET', url, params, cacheRequestType);
   }
-  public async callApiPost(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
-    return this.callApi('POST', url, params, cacheRequestType);
+  public async post(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
+    return this.request('POST', url, params, cacheRequestType);
   }
-  public async callApiPut(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
-    return this.callApi('PUT', url, params, cacheRequestType);
+  public async put(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
+    return this.request('PUT', url, params, cacheRequestType);
   }
-  public async callApiPatch(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
-    return this.callApi('PATCH', url, params, cacheRequestType);
+  public async patch(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
+    return this.request('PATCH', url, params, cacheRequestType);
   }
-  public async callApiDelete(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
-    return this.callApi('DELETE', url, params, cacheRequestType);
+  public async delete(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Promise<any> {
+    return this.request('DELETE', url, params, cacheRequestType);
   }
 
   /**
@@ -117,30 +97,207 @@ export class ApiService extends Loggable {
    *   'reload': return cache if present and reload the cache
    * @returns Promise<any>
    */
-  public async callApi(
+  public async request(
     method: string,
     url: string,
     params?: object,
     cacheRequestType: CacheRequestType = CacheRequestType.none,
   ): Promise<any> {
-    this.log('ApiService.callApi() method:', method, 'url:', url, 'params:', params, 'cacheRequestType:', cacheRequestType);
+    this.log('ApiService.request() method:', method, 'url:', url, 'params:', params, 'cacheRequestType:', cacheRequestType);
     return new Promise((resolve, reject) => {
-      // this.log('ApiService.callApi() call getApi...');
+      // this.log('ApiService.request() call getApi...');
       this.getApi(method, url, params, cacheRequestType)
-      .subscribe(
-        (response: object) => {
-          this.log('ApiService.callApi() next method="' + method + '" url="' + url + '" response:', response);
+      .subscribe({
+        next: (response: object) => {
+          this.log('ApiService.request() next method="' + method + '" url="' + url + '" response:', response);
           return resolve(response);
         },
-        (error) => {
-          this.log('ApiService.callApi() error method="' + method + '" url="' + url + '" error:', error);
+        error: (error) => {
+          this.log('ApiService.request() error method="' + method + '" url="' + url + '" error:', error);
           return reject(error);
         },
-        () => {
-          this.log('ApiService.callApi() complete method="' + method + '" url="' + url + '"');
-        }
-      );
+        complete: () => {
+          this.log('ApiService.request() complete method="' + method + '" url="' + url + '"');
+        },
+      });
     });
+  }
+
+  public getApiGet(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
+    return this.getApi('GET', url, params, cacheRequestType);
+  }
+  public getApiPost(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
+    return this.getApi('POST', url, params, cacheRequestType);
+  }
+  public getApiPut(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
+    return this.getApi('PUT', url, params, cacheRequestType);
+  }
+  public getApiPatch(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
+    return this.getApi('PATCH', url, params, cacheRequestType);
+  }
+  public getApiDelete(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
+    return this.getApi('DELETE', url, params, cacheRequestType);
+  }
+
+  public getApi(method: string, url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none, headers?: HttpHeaders): Observable<any> {
+    this.log('ApiService.getApi() method:', method, 'url:', url, 'params:', params,
+    'cacheRequestType[' + (typeof cacheRequestType) + ']:', cacheRequestType);
+    // this.log('ApiService.getApi() °°° url.trim()[' + (typeof (url.trim())) + ']:', url.trim());
+    if (url.trim() === '') {
+      this.log('ApiService.getApi() url.trim() === "" !!!!!!!! return...');
+      // if not search term, return empty hero array.
+      return of({
+        status: 'error',
+        result: 'Not Found',
+        message: 'Url not set',
+      });
+    }
+
+    // Check cache
+    let cacheResponse: ApiResponse | null = null;
+    let cacheOutdated = true;
+    let cacheUrl = '';
+    switch (cacheRequestType) {
+      case CacheRequestType.cache:
+      case CacheRequestType.forceCache:
+      case CacheRequestType.cacheReload:
+      case CacheRequestType.forceCacheReload:
+      case CacheRequestType.reload: {
+        // this.log('ApiService.getApi() °°° cacheRequestType:', cacheRequestType);
+        // create httpParamsString
+        let httpParamsString = '';
+        if (params && Util.isObject(params)) {
+          let httpParams = new HttpParams();
+          Object.entries(params).forEach((entry) => {
+            const key = entry[0];
+            const value = entry[1];
+            // this.log('ApiService.getApi() °°° ...key:', key, 'value:', value);
+            httpParams = httpParams.set(key, value);
+          });
+          // this.log('ApiService.getApi() °°° ...httpParams:', httpParams);
+          httpParamsString = httpParams.toString();
+          // this.log('ApiService.getApi() °°° ...httpParams.toString()[' + (typeof httpParamsString) + ']:', httpParamsString);
+        }
+        // get cache url + params
+        cacheUrl = url + (httpParamsString !== '' ? '?' + httpParamsString : '');
+        this.log('ApiService.getApi() cache get url:', url);
+        const cacheEntry = this.cache.get(cacheUrl);
+        this.log('ApiService.getApi() cacheEntry:', cacheEntry);
+        if (cacheEntry) {
+          cacheResponse = cacheEntry.response;
+          cacheOutdated = cacheEntry.outdated;
+          // this.log('ApiService.getApi() °°° cacheResponse:', cacheResponse);
+          // this.log('ApiService.getApi() °°° cacheOutdated:', cacheOutdated);
+          this.log('ApiService.getApi() cachedResponse:',
+            Util.isArray(cacheResponse) ? 'Array' :
+            Util.isObject(cacheResponse) ? 'Object' : cacheResponse,
+            'cachedOutdated:', cacheOutdated
+          );
+        }
+      }
+      break;
+    }
+
+    // Check if return only cache
+    switch (cacheRequestType) {
+      case CacheRequestType.cache:
+      case CacheRequestType.forceCache:
+        if (cacheResponse && !cacheOutdated) {
+          // exit return only with cache data
+          return of(cacheResponse);
+        }
+    }
+
+    // Get HTTP request
+    let result$ = this.getHttpRequest(method, url, params, headers);
+
+    // Check if return cache first
+    if (cacheResponse && (
+        cacheRequestType === CacheRequestType.forceCache ||
+        cacheRequestType === CacheRequestType.forceCacheReload ||
+        (cacheRequestType === CacheRequestType.cacheReload && !cacheOutdated)
+      )
+    ) {
+      this.log('ApiService.getApi() °°° call cache reload. startWith cacheResponse:', cacheResponse);
+      result$ = result$.pipe(startWith(cacheResponse));
+    }
+
+    return result$.pipe(
+      // retry(3), // retry a failed request up to 3 times
+      map((returnData: ApiResponse) => {
+        this.log('ApiService.getApi() returnData:', returnData);
+        if (cacheRequestType !== CacheRequestType.none) {
+          this.log('ApiService.getApi() cacheRequestType:', cacheRequestType);
+          this.log('ApiService.getApi() put cache url:', cacheUrl, 'returnData:', returnData);
+          this.cache.put(cacheUrl, returnData);
+        }
+        return returnData;
+      }),
+      // catchError(this.handleError<ApiResponse>('getApi'))
+      catchError((error) => {
+        this.log('ApiService.getApi() - catchError - error:', error);
+        return this.handleError(error);
+      }),
+    );
+  }
+
+  private mergeHeaders(headers1: HttpHeaders, headers2?: HttpHeaders): HttpHeaders {
+    if (!headers2) {
+      return headers1;
+    }
+    else {
+      this.log('§§§§§§§§§§§§§§§§§ newHeaders...');
+      const objHeader1: {[key: string]: any} = {};
+      headers1.keys().forEach((key) => {
+        this.log('§§§§§§§§§§§§§§§§§ headers1 key:', key, 'values:', headers1.getAll(key));
+        objHeader1[key] = headers1.get(key);
+      });
+      this.log('§§§§§§§§§§§§§§§§§ objHeader1:', objHeader1);
+      const objHeader2: {[key:string]: any} = {};
+      headers2.keys().forEach((key) => {
+        this.log('§§§§§§§§§§§§§§§§§ headers2 key:', key, 'values:', headers2.getAll(key));
+        objHeader2[key] = headers2.get(key);
+      })
+      this.log('§§§§§§§§§§§§§§§§§ objHeader2:', objHeader2);
+      Object.assign(objHeader1, objHeader2);
+      this.log('§§§§§§§§§§§§§§§§§ new objHeader:', objHeader1);
+      const newHeaders = new HttpHeaders(objHeader1);
+      this.log('§§§§§§§§§§§§§§§§§ newHeaders:', newHeaders);
+      newHeaders.keys().forEach((key) => {
+        this.log('§§§§§§§§§§§§§§§§§ newHeaders key:', key, 'values:', newHeaders.getAll(key));
+      });
+      return newHeaders;
+    }
+  }
+
+  /**
+   * Make a http request.
+   * @param method The method to use: GET, POST, PUT, PATCH and DELETE.
+   * @param url The URL to get.
+   * @param params Optionals parameters. They are sent as `params` or `body` according to method.
+   * @param headers Optionals headers to send.
+   * @returns The observable object of http request.
+   */
+  private getHttpRequest(method: string, url: string, params?: object, headers?: HttpHeaders): Observable<ApiResponse> {
+    this.log('ApiService.getHttpRequest() method:', method, 'url:', url, 'params:', params);
+    const options: HttpOptions = {
+      headers: this.mergeHeaders(this.httpHeaders, headers),
+      responseType: 'json',
+      observe: 'body',
+    };
+    switch (method) {
+      case 'GET':
+      case 'DELETE':
+        options.params = this.getHttpParams(params);
+        break;
+      case 'POST':
+      case 'PUT':
+      case 'PATCH':
+        options.body = params;
+        break;
+    }
+    this.log(method + ' - options:', options);
+    return this.http.request<ApiResponse>(method, this.pathUrl + url, options);
   }
 
   public sendMultipartFormData(
@@ -228,240 +385,24 @@ export class ApiService extends Loggable {
           return this.handleError(error);
         }),
       )
-      .subscribe(
-        (response: object) => {
+      .subscribe({
+        next: (response: string | Record<string, any> | Record<string, any>[]) => {
           this.log('ApiService.sendMultipartFormData() next method="' + method + '" url="' + url + '" response:', response);
           return resolve(response);
         },
-        (error) => {
+        error: (error) => {
           this.log('ApiService.sendMultipartFormData() error method="' + method + '" url="' + url + '" error:', error);
           return reject(error);
         },
-        () => {
+        complete: () => {
           this.log('ApiService.sendMultipartFormData() complete method="' + method + '" url="' + url + '"');
           this.logs = false;
-        }
-      );
+        },
+      });
     });
   }
 
-  public getApiGet(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
-    return this.getApi('GET', url, params, cacheRequestType);
-  }
-  public getApiPost(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
-    return this.getApi('POST', url, params, cacheRequestType);
-  }
-  public getApiPut(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
-    return this.getApi('PUT', url, params, cacheRequestType);
-  }
-  public getApiPatch(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
-    return this.getApi('PATCH', url, params, cacheRequestType);
-  }
-  public getApiDelete(url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none): Observable<any> {
-    return this.getApi('DELETE', url, params, cacheRequestType);
-  }
-
-  public getApi(method: string, url: string, params?: object, cacheRequestType: CacheRequestType = CacheRequestType.none, headers?: HttpHeaders): Observable<any> {
-    this.log('ApiService.getApi() method:', method, 'url:', url, 'params:', params,
-    'cacheRequestType[' + (typeof cacheRequestType) + ']:', cacheRequestType);
-    // this.log('ApiService.getApi() °°° url.trim()[' + (typeof (url.trim())) + ']:', url.trim());
-    if (!url.trim()) {
-      this.log('ApiService.getApi() !url.trim() !!!!!!!! return...');
-      // if not search term, return empty hero array.
-      return of({
-        status: 'error',
-        result: 'Not Found',
-        message: 'Url not set',
-      });
-    }
-
-    // Check cache
-    let cacheResponse: ApiResponse | null = null;
-    let cacheOutdated = true;
-    let cacheUrl = '';
-    switch (cacheRequestType) {
-      case CacheRequestType.cache:
-      case CacheRequestType.forceCache:
-      case CacheRequestType.cacheReload:
-      case CacheRequestType.forceCacheReload:
-      case CacheRequestType.reload: {
-        // this.log('ApiService.getApi() °°° cacheRequestType:', cacheRequestType);
-        // create httpParamsString
-        let httpParamsString = '';
-        if (params && Util.isObject(params)) {
-          let httpParams = new HttpParams();
-          Object.entries(params).forEach((entry) => {
-            const key = entry[0];
-            const value = entry[1];
-            // this.log('ApiService.getApi() °°° ...key:', key, 'value:', value);
-            httpParams = httpParams.set(key, value);
-          });
-          // this.log('ApiService.getApi() °°° ...httpParams:', httpParams);
-          httpParamsString = httpParams.toString();
-          // this.log('ApiService.getApi() °°° ...httpParams.toString()[' + (typeof httpParamsString) + ']:', httpParamsString);
-        }
-        // get cache url + params
-        cacheUrl = url + (httpParamsString !== '' ? '?' + httpParamsString : '');
-        this.log('ApiService.getApi() cache get url:', url);
-        const cacheEntry = this.cache.get(cacheUrl);
-        this.log('ApiService.getApi() cacheEntry:', cacheEntry);
-        if (cacheEntry) {
-          cacheResponse = cacheEntry.response;
-          cacheOutdated = cacheEntry.outdated;
-          // this.log('ApiService.getApi() °°° cacheResponse:', cacheResponse);
-          // this.log('ApiService.getApi() °°° cacheOutdated:', cacheOutdated);
-          this.log('ApiService.getApi() cachedResponse:',
-            Util.isArray(cacheResponse) ? 'Array' :
-            Util.isObject(cacheResponse) ? 'Object' : cacheResponse,
-            'cachedOutdated:', cacheOutdated
-          );
-        }
-      }
-      break;
-    }
-
-    // Check if return only cache
-    switch (cacheRequestType) {
-      case CacheRequestType.cache:
-      case CacheRequestType.forceCache:
-        if (cacheResponse && !cacheOutdated) {
-          // exit return only with cache data
-          return of(cacheResponse);
-        }
-    }
-
-    // Get HTTP request
-    let result$ = this.getHttpRequest(method, url, params, headers);
-
-    // Check if return cache first
-    if (cacheResponse && (
-        cacheRequestType === CacheRequestType.forceCache ||
-        cacheRequestType === CacheRequestType.forceCacheReload ||
-        (cacheRequestType === CacheRequestType.cacheReload && !cacheOutdated)
-      )
-    ) {
-      this.log('ApiService.getApi() °°° call cache reload. startWith cacheResponse:', cacheResponse);
-      result$ = result$.pipe(startWith(cacheResponse));
-    }
-
-    return result$.pipe(
-      // retry(3), // retry a failed request up to 3 times
-      map((response: ApiResponse) => {
-        let returnData: ApiResponse;
-        // Storybox:
-        // if (response.data) {
-        //   returnData = response.data;
-        // }
-        // else {
-          returnData = response;
-        // }
-
-        // switch (response.status) {
-        // case 'response':
-        //   // this.log('status: response...');
-        //   switch (response.result) {
-        //     case 'data':
-        //       // this.log('result: data');
-        //       returnData = response.data;
-        //       break;
-        //     case 'message':
-        //       // this.log('result: message');
-        //       returnData = response.message;
-        //       break;
-        //     default:
-        //       // this.log('result unknown');
-        //       returnData = response;
-        //       break;
-        //   }
-        //   break;
-        // case 'error':
-        //   // this.log('status: error...');
-        //   switch (response.result) {
-        //     case 'data':
-        //       // this.log('result: data');
-        //       returnData = throwError(response.data);
-        //       break;
-        //     case 'message':
-        //       // this.log('result: message');
-        //       returnData = throwError(response.message);
-        //       break;
-        //     default:
-        //       // this.log('result unknown');
-        //       returnData = throwError(response);
-        //       break;
-        //   }
-        //   break;
-        // default:
-        //   // this.log('status: unknown');
-        //   returnData = response;
-        //   break;
-        // }
-        this.log('ApiService.getApi() response:', response, 'returnData:', returnData);
-        if (cacheRequestType !== CacheRequestType.none) {
-          this.log('ApiService.getApi() cacheRequestType:', cacheRequestType);
-          this.log('ApiService.getApi() put cache url:', cacheUrl, 'returnData:', returnData);
-          this.cache.put(cacheUrl, returnData);
-        }
-        return returnData;
-      }),
-      // catchError(this.handleError<ApiResponse>('getApi'))
-      catchError((error) => {
-        this.log('ApiService.getApi() - catchError - error:', error);
-        return this.handleError(error);
-      }),
-    );
-  }
-
-  private mergeHeaders(headers1: HttpHeaders, headers2?: HttpHeaders): HttpHeaders {
-    if (!headers2) {
-      return headers1;
-    }
-    else {
-      this.log('§§§§§§§§§§§§§§§§§ newHeaders...');
-      const objHeader1: {[key: string]: any} = {};
-      headers1.keys().forEach((key) => {
-        this.log('§§§§§§§§§§§§§§§§§ headers1 key:', key, 'values:', headers1.getAll(key));
-        objHeader1[key] = headers1.get(key);
-      });
-      this.log('§§§§§§§§§§§§§§§§§ objHeader1:', objHeader1);
-      const objHeader2: {[key:string]: any} = {};
-      headers2.keys().forEach((key) => {
-        this.log('§§§§§§§§§§§§§§§§§ headers2 key:', key, 'values:', headers2.getAll(key));
-        objHeader2[key] = headers2.get(key);
-      })
-      this.log('§§§§§§§§§§§§§§§§§ objHeader2:', objHeader2);
-      Object.assign(objHeader1, objHeader2);
-      this.log('§§§§§§§§§§§§§§§§§ new objHeader:', objHeader1);
-      const newHeaders = new HttpHeaders(objHeader1);
-      this.log('§§§§§§§§§§§§§§§§§ newHeaders:', newHeaders);
-      newHeaders.keys().forEach((key) => {
-        this.log('§§§§§§§§§§§§§§§§§ newHeaders key:', key, 'values:', newHeaders.getAll(key));
-      });
-      return newHeaders;
-    }
-  }
-
-  private getHttpRequest(method: string, url: string, params?: object, headers?: HttpHeaders): Observable<ApiResponse> {
-    this.log('ApiService.getHttpRequest() method:', method, 'url:', url, 'params:', params);
-    const options: HttpOptions = {
-      headers: this.mergeHeaders(this.httpHeaders, headers),
-      responseType: 'json',
-      observe: 'body',
-    };
-    switch (method) {
-      case 'GET':
-      case 'DELETE':
-        options.params = this.getHttpParams(params);
-        break;
-      case 'POST':
-      case 'PUT':
-      case 'PATCH':
-        options.body = params;
-        break;
-    }
-    this.log(method + ' - options:', options);
-    return this.http.request<ApiResponse>(method, this.pathUrl + url, options);
-  }
+// **********************************************************
 
   public getApiFull(method: string, url: string, params?: object): Observable<any> {
     if (!url.trim()) {

@@ -122,7 +122,7 @@ export class AuthService extends Loggable {
 
   public callApiRegister(formValue: object): Promise<any> {
     this.log('AuthService.callApiRegister()...');
-    return this.api.callApiPost('register', formValue)
+    return this.api.post('register', formValue)
     .then((result) => {
       return this.parseResult(result);
     });
@@ -133,7 +133,7 @@ export class AuthService extends Loggable {
 
   public callApiLogin(params: object): Promise<any> {
     this.log('AuthService.callApiLogin()...');
-    return this.api.callApiPost('login', params)
+    return this.api.post('login', params)
     .then((result) => {
       this.executeAfterLogin();
       return this.parseResult(result);
@@ -162,7 +162,7 @@ export class AuthService extends Loggable {
 
   public callApiLogout(): Promise<any> {
     this.log('AuthService.callApiLogout()...');
-    return this.api.callApiGet('logout')
+    return this.api.get('logout')
     .then((result) => {
       this.log('AuthService.callApiLogout() result:', result);
       this.setLogout();
@@ -172,7 +172,7 @@ export class AuthService extends Loggable {
 
   public callApiUser(): Promise<any> {
     this.log('AuthService.callApiUser()...');
-    return this.api.callApiGet('user')
+    return this.api.get('user')
     .then((result) => {
       this.setUser(result);
       this.executeAfterLogin();

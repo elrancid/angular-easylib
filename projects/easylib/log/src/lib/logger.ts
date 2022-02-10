@@ -1,6 +1,8 @@
 // import { Directive } from '@angular/core';
-import * as moment from 'moment';
+// import * as moment from 'moment';
+// import moment from 'moment';
 import { Util } from '@easylib/util';
+// import { isFunction } from 'lodash-es';
 
 /**
  * Use `Logger` static methods to log to console.
@@ -56,7 +58,9 @@ export class Logger {
     // console.log('callLog() logLevel:', logLevel, 'params1:', JSON.parse(JSON.stringify(params)), 'params:', params);
     // console.log('callLog()... params[' + (typeof params) + '|' + params.length + ']:', params);
     // params.unshift('[' + moment().format('YYYY-MM-DD HH:mm:ss.SSS') + '][' + Logger.getCallerName() + ']');
-    params.unshift('\x1b[35m%s\x1b[32m%s\x1b[0m', moment().format('HH:mm:ss.SSS') + ' ', Logger.getCallerName() + ':');
+    const momentTime = Util.moment();
+    const time = momentTime.format('HH:mm:ss.SSS');
+    params.unshift('\x1b[35m%s\x1b[32m%s\x1b[0m', time + ' ', Logger.getCallerName() + ':');
     let consoleMethod;
     switch (logLevel) {
       // tslint:disable-next-line: no-console
